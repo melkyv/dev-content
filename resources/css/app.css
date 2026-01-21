@@ -1,0 +1,45 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --color-primary: oklch(0.65 0.25 295);
+    --color-primary-dark: oklch(0.55 0.20 295);
+    --color-secondary: oklch(0.60 0.28 270);
+    --color-accent: oklch(0.70 0.18 45);
+}
+
+@variant dark (&:where(.dark, .dark *));
+
+@layer components {
+    .btn-primary {
+        @apply bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-dark transition duration-300;
+    }
+
+    .btn-secondary {
+        @apply border-2 border-primary text-primary px-6 py-3 rounded-lg font-semibold hover:bg-primary hover:text-white transition duration-300;
+    }
+
+    .card-hover {
+        @apply transition duration-300 hover:scale-105 hover:shadow-xl;
+    }
+}
+
+@layer utilities {
+    .scroll-reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s ease-out;
+    }
+
+    .scroll-reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
