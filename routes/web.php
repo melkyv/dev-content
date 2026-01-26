@@ -20,27 +20,27 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('contents')->group(function () {
         Route::get('/', function () {
-            return view('pages.contents.index');
+            return view('livewire.contents.index');
         })->name('contents.index');
 
         Route::get('/create', function () {
-            return view('pages.contents.create');
+            return view('livewire.contents.create');
         })->name('contents.create');
 
         Route::get('/my', function () {
-            return view('pages.contents.my');
+            return view('livewire.contents.my');
         })->name('contents.my');
     });
 
     Route::get('/subscription', function () {
-        return view('pages.subscription');
+        return view('livewire.subscription');
     })->name('subscription');
 
     Route::get('/profile', function () {
-        return view('pages.profile');
+        return view('livewire.profile');
     })->name('profile');
 
     Route::get('/settings', function () {
-        return view('pages.settings');
+        return view('livewire.settings');
     })->name('settings');
 });

@@ -2,8 +2,8 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
 use Livewire\Attributes\On;
+use Livewire\Component;
 
 class ThemeToggle extends Component
 {
@@ -17,12 +17,7 @@ class ThemeToggle extends Component
 
     public function toggleTheme(): void
     {
-        $this->isDarkMode = !$this->isDarkMode;
+        $this->isDarkMode = ! $this->isDarkMode;
         $this->dispatch('theme-changed', isDarkMode: $this->isDarkMode);
-    }
-
-    public function render()
-    {
-        return view('livewire.theme-toggle');
     }
 }
