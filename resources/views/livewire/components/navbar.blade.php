@@ -11,7 +11,12 @@
             </div>
 
             {{-- Lado Direito --}}
-            <div class="flex items-center gap-4">
+                {{-- Toogle theme --}}
+                <div class="flex items-center gap-4">
+                    <div class="absolute top-4 right-4 z-50">
+                    <livewire:theme-toggle />
+                </div>
+
                 {{-- Badge do Plano --}}
                 <span class="hidden sm:block px-3 py-1 rounded-full text-sm font-semibold {{ auth()->user()->subscription?->plan?->slug === 'premium' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300' : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300' }}">
                     {{ auth()->user()->subscription?->plan?->name ?? 'Free' }}
@@ -21,7 +26,7 @@
                 <div x-data="{ open: false }" class="relative">
                     <button @click="open = !open" class="flex items-center gap-2 focus:outline-none cursor-pointer">
                         @if(auth()->user()->avatar_path)
-                            <img src="{{ Storage::url(auth()->user()->avatar_path) }}" alt="{{ auth()->user()->name }}" class="w-10 h-10 rounded-full object-cover border-2 border-gray-200 dark:border-gray-700">
+                            <img src="{{ auth()->user()->avatarUrl }}" alt="{{ auth()->user()->name }}" class="w-10 h-10 rounded-full object-cover border-2 border-gray-200 dark:border-gray-700">
                         @else
                             <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-semibold text-lg border-2 border-gray-200 dark:border-gray-700">
                                 {{ auth()->user()->initials }}

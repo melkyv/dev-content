@@ -71,22 +71,22 @@
 
     {{-- OAuth Buttons (Placeholder) --}}
     <div class="space-y-3">
-        <button
-            type="button"
+        <a
+            href="{{ route('socialite.redirect', 'google') }}"
             class="btn-secondary w-full flex items-center justify-center gap-2"
             disabled
         >
             <i class="ph ph-google-logo text-xl"></i>
             Continuar com Google
-        </button>
-        <button
-            type="button"
+        </a>
+        <a
+            href="{{ route('socialite.redirect', 'github') }}"
             class="btn-secondary w-full flex items-center justify-center gap-2"
             disabled
         >
             <i class="ph ph-github-logo text-xl"></i>
             Continuar com GitHub
-        </button>
+        </a>
     </div>
 
     {{-- Register Link --}}
