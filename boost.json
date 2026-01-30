@@ -3,5 +3,10 @@
         "gemini",
         "opencode"
     ],
+    "editors": [
+        "gemini",
+        "opencode",
+        "vscode"
+    ],
     "guidelines": []
 }
