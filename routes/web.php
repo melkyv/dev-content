@@ -7,6 +7,9 @@ use App\Livewire\Auth\Register;
 use App\Livewire\Auth\ResetPassword;
 use App\Livewire\Dashboard;
 use App\Livewire\LandingPage;
+use App\Livewire\Subscription\Cancel;
+use App\Livewire\Subscription\ManageSubscription;
+use App\Livewire\Subscription\Success;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', LandingPage::class)->name('landing-page');
@@ -16,10 +19,11 @@ Route::get('/register', Register::class)->name('register');
 Route::get('/forgot-password', ForgotPassword::class)->name('password.request');
 Route::get('/reset-password/{token}', ResetPassword::class)->name('password.reset');
 
+Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('socialite.redirect');
 
-Route::get('/auth/{provider}/redirect', [SocialiteController::class,'redirect'])->name('socialite.redirect');
+Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('socialite.callback');
 
-Route::get('/auth/{provider}/callback', [SocialiteController::class,'callback'])->name('socialite.callback');
+Route::post('/webhooks/stripe', [\App\Http\Controllers\WebhookController::class, 'stripe'])->name('webhooks.stripe');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
@@ -38,9 +42,10 @@ Route::middleware(['auth'])->group(function () {
         })->name('contents.my');
     });
 
-    Route::get('/subscription', function () {
-        return view('livewire.subscription');
-    })->name('subscription');
+    Route::get('/subscription', ManageSubscription::class)->name('subscription');
+
+    Route::get('/subscription/success', Success::class)->name('subscription.success')->middleware('subscription.access');
+    Route::get('/subscription/cancel', Cancel::class)->name('subscription.cancel')->middleware('subscription.access');
 
     Route::get('/profile', function () {
         return view('livewire.profile');

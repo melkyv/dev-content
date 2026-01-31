@@ -209,7 +209,7 @@
                         <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
                             <span class="bg-accent text-white text-sm font-semibold px-3 py-1 rounded-full">Mais Popular</span>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-2">Pro</h3>
+                        <h3 class="text-2xl font-bold text-white mb-2">Premium</h3>
                         <div class="flex items-baseline gap-1 mb-6">
                             <span class="text-4xl font-bold text-white">R$ 49</span>
                             <span class="text-white/80">/mês</span>

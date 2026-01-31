@@ -17,12 +17,18 @@ class Subscription extends Model
         'stripe_subscription_id',
         'status',
         'ends_at',
+        'cancel_at_period_end',
+        'canceled_at',
+        'currency',
+        'amount',
     ];
 
     protected function casts(): array
     {
         return [
             'ends_at' => 'datetime',
+            'canceled_at' => 'datetime',
+            'cancel_at_period_end' => 'boolean',
         ];
     }
 
@@ -39,5 +45,20 @@ class Subscription extends Model
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
+    }
+
+    public function active(): bool
+    {
+        return $this->status === 'active' && $this->amount > 0 && (! $this->ends_at || $this->ends_at->isFuture());
+    }
+
+    public function cancelled(): bool
+    {
+        return $this->status === 'canceled' || $this->cancel_at_period_end;
+    }
+
+    public function onGracePeriod(): bool
+    {
+        return $this->cancelled() && $this->ends_at?->isFuture();
     }
 }

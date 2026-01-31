@@ -18,7 +18,7 @@
                 </div>
 
                 {{-- Badge do Plano --}}
-                <span class="hidden sm:block px-3 py-1 rounded-full text-sm font-semibold {{ auth()->user()->subscription?->plan?->slug === 'premium' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300' : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300' }}">
+                <span class="hidden sm:block px-3 py-1 rounded-full text-sm font-semibold {{ auth()->user()->hasActiveSubscription() ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300' : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300' }}">
                     {{ auth()->user()->subscription?->plan?->name ?? 'Free' }}
                 </span>
 

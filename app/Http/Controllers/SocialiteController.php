@@ -17,7 +17,7 @@ class SocialiteController extends Controller
     {
         try {
             $socialUser = Socialite::driver($provider)->user();
-            
+
             $user = User::updateOrCreate(
                 ['email' => $socialUser->getEmail()],
                 [
@@ -27,11 +27,11 @@ class SocialiteController extends Controller
                     'avatar_path' => $socialUser->getAvatar(),
                 ]
             );
-            
+
             Auth::login($user);
-            
+
             return redirect()->intended('dashboard');
-            
+
         } catch (\Exception $e) {
             return redirect('/login')->with('error', 'Erro ao autenticar');
         }

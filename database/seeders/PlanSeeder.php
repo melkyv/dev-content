@@ -25,8 +25,8 @@ class PlanSeeder extends Seeder
             [
                 'name' => 'Premium',
                 'slug' => 'premium',
-                'price' => 1990,
-                'stripe_price_id' => null,
+                'price' => 4900,
+                'stripe_price_id' => 'your_stripe_price_id',
                 'is_active' => true,
             ]
         );

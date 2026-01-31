@@ -36,7 +36,7 @@ class Dashboard extends Component
     {
         $this->user = Auth::user()->load('subscription.plan');
         $this->plan = $this->user->subscription?->plan;
-        $this->isPremium = $this->plan && $this->plan->slug === 'pro';
+        $this->isPremium = $this->plan && $this->plan->slug === 'premium';
 
         $this->myContents = $this->user->contents()
             ->with('metrics')
@@ -70,14 +70,5 @@ class Dashboard extends Component
         } else {
             $this->dashboardState = $this->hasContents ? 'with-content' : 'new-user';
         }
-    }
-
-    public function logout(): void
-    {
-        Auth::logout();
-        session()->invalidate();
-        session()->regenerateToken();
-
-        $this->redirect(route('login'), navigate: true);
     }
 }

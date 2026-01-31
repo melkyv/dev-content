@@ -12,6 +12,14 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->redirectGuestsTo('/login');
+
+        $middleware->alias([
+            'subscribed' => \App\Http\Middleware\SubscribedMiddleware::class,
+            'subscription.access' => \App\Http\Middleware\SubscriptionAccessMiddleware::class,
+        ]);
+
+        $middleware->validateCsrfTokens(except: ['/webhooks/stripe']);
+
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

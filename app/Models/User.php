@@ -42,14 +42,14 @@ class User extends Authenticatable
     {
         return Attribute::make(
             get: function () {
-                if (!$this->avatar_path) {
+                if (! $this->avatar_path) {
                     return asset('images/default-avatar.png');
                 }
-                
+
                 if (filter_var($this->avatar_path, FILTER_VALIDATE_URL)) {
                     return $this->avatar_path;
                 }
-                
+
                 return Storage::url($this->avatar_path);
             }
         );
@@ -84,5 +84,20 @@ class User extends Authenticatable
     public function contents(): HasMany
     {
         return $this->hasMany(Content::class);
+    }
+
+    public function hasActiveSubscription(): bool
+    {
+        return $this->subscription?->active() ?? false;
+    }
+
+    public function activeSubscription(): ?Subscription
+    {
+        return $this->subscription?->active() ? $this->subscription : null;
+    }
+
+    public function activePlan(): ?Plan
+    {
+        return $this->activeSubscription()?->plan;
     }
 }
