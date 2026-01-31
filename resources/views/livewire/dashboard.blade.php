@@ -164,7 +164,7 @@
             {{-- Conteúdos Premium Acessíveis --}}
             <div class="bg-white dark:bg-[#1e293b] rounded-xl border border-gray-200 dark:border-gray-800 p-6">
                 <h2 class="text-lg font-semibold text-[#1e293b] dark:text-[#f1f5f9] mb-4">Conteúdos Premium Acessíveis</h2>
-                <p class="text-4xl font-bold text-primary mb-2">{{ Content::where('is_premium', true)->whereNotNull('published_at')->count() }}</p>
+                <p class="text-4xl font-bold text-primary mb-2">{{ $TotalPremiumContents }}</p>
                 <p class="text-[#64748b] dark:text-[#94a3b8]">disponíveis para você</p>
             </div>
         </div>

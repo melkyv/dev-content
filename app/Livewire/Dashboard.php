@@ -26,6 +26,8 @@ class Dashboard extends Component
 
     public $premiumContents;
 
+    public $TotalPremiumContents;
+
     public $processingFiles;
 
     public $dashboardState;
@@ -34,7 +36,7 @@ class Dashboard extends Component
     {
         $this->user = Auth::user()->load('subscription.plan');
         $this->plan = $this->user->subscription?->plan;
-        $this->isPremium = $this->plan && $this->plan->slug === 'premium';
+        $this->isPremium = $this->plan && $this->plan->slug === 'pro';
 
         $this->myContents = $this->user->contents()
             ->with('metrics')
@@ -54,6 +56,8 @@ class Dashboard extends Component
             ->count();
 
         $this->totalPlatformContents = Content::whereNotNull('published_at')->count();
+
+        $this->TotalPremiumContents = Content::where('is_premium', true)->whereNotNull('published_at')->count();
 
         $this->premiumContents = Content::where('is_premium', true)
             ->whereNotNull('published_at')
