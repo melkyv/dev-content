@@ -1,3 +1,20 @@
+<?php
+
+use Livewire\Component;
+
+new class extends Component
+{
+    public function logout(): void
+    {
+        auth()->logout();
+        session()->invalidate();
+        session()->regenerateToken();
+
+        $this->redirect(route('login'), navigate: true);
+    }
+};
+?>
+
 <nav class="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-[#1e293b] border-b border-gray-200 dark:border-gray-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
@@ -57,4 +74,4 @@
                 </div>
             </div>
         </div>
-    </nav>
+</nav>

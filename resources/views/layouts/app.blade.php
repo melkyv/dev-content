@@ -34,7 +34,7 @@
     </head>
     <body class="bg-[#f8fafc] dark:bg-[#0f172a]">
         @if(auth()->check())
-            <livewire:components.navbar />
+            <livewire:navbar />
             <x-sidebar />
         @endif
 
