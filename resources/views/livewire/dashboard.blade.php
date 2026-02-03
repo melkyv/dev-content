@@ -156,7 +156,7 @@
                     </div>
                     <div class="flex justify-between">
                         <span>Valor mensal</span>
-                        <span class="font-bold">R$ 19,90</span>
+                        <span class="font-bold">R$ {{ number_format($user->subscription?->plan?->price / 100, 2, ',', '.') }}</span>
                     </div>
                 </div>
             </div>
