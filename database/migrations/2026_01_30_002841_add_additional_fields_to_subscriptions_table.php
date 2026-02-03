@@ -12,6 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('subscriptions', function (Blueprint $table) {
+            $table->timestamp('cancel_at')->nullable()->after('ends_at');
+            $table->boolean('cancel_at_period_end')->default(false)->after('cancel_at');
             $table->timestamp('canceled_at')->nullable()->after('cancel_at_period_end');
             $table->string('currency', 3)->default('brl')->after('canceled_at');
             $table->integer('amount')->default(0)->after('currency');
@@ -24,7 +26,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('subscriptions', function (Blueprint $table) {
-            $table->dropColumn(['canceled_at', 'currency', 'amount']);
+            $table->dropColumn(['cancel_at', 'canceled_at', 'currency', 'amount', 'cancel_at_period_end']);
         });
     }
 };

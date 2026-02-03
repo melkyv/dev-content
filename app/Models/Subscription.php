@@ -17,6 +17,7 @@ class Subscription extends Model
         'stripe_subscription_id',
         'status',
         'ends_at',
+        'cancel_at',
         'cancel_at_period_end',
         'canceled_at',
         'currency',

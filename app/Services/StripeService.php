@@ -169,9 +169,7 @@ class StripeService
                 'plan_id' => $plan->id,
                 'stripe_subscription_id' => $subscription->id,
                 'status' => $subscription->status,
-                'ends_at' => $subscription->current_period_end ? now()->setTimestamp($subscription->current_period_end) : null,
-                'cancel_at_period_end' => $subscription->cancel_at_period_end ?? false,
-                'canceled_at' => $subscription->canceled_at ? now()->setTimestamp($subscription->canceled_at) : null,
+                'ends_at' => $subscriptionItem->current_period_end ? now()->setTimestamp($subscriptionItem->current_period_end) : null,
                 'currency' => $subscription->currency ?? 'brl',
                 'amount' => $price?->unit_amount ?? ($price?->amount ?? 0),
             ]
@@ -208,7 +206,7 @@ class StripeService
 
         $updateData = [
             'status' => $subscription->status,
-            'ends_at' => $subscription->current_period_end ? now()->setTimestamp($subscription->current_period_end) : null,
+            'ends_at' => $subscriptionItem->current_period_end ? now()->setTimestamp($subscriptionItem->current_period_end) : null,
             'cancel_at_period_end' => $subscription->cancel_at_period_end ?? false,
             'currency' => $subscription->currency ?? 'brl',
             'amount' => $price?->unit_amount ?? ($price?->amount ?? 0),
@@ -219,7 +217,7 @@ class StripeService
         }
 
         if (isset($subscription->cancel_at)) {
-            $updateData['ends_at'] = now()->setTimestamp($subscription->cancel_at);
+            $updateData['cancel_at'] = now()->setTimestamp($subscription->cancel_at);
         }
 
         $localSubscription->update($updateData);
