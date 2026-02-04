@@ -281,7 +281,9 @@ class StripeService
             ];
         }
 
-        $localSubscription = Subscription::where('stripe_subscription_id', $invoice->subscription)->first();
+        $subscriptionId = $invoice->parent->subscription_details->subscription;
+
+        $localSubscription = Subscription::where('stripe_subscription_id', $subscriptionId)->first();
 
         if (! $localSubscription) {
             Log::warning('Local subscription not found for payment', ['stripe_subscription_id' => $invoice->subscription]);
