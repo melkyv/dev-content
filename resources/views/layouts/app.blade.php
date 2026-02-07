@@ -44,6 +44,8 @@
         </div>
 
         @livewireScripts
+	
+	    <x-toaster-hub />
 
         <script>
             document.addEventListener('livewire:initialized', () => {
