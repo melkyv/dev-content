@@ -7,6 +7,7 @@ use App\Livewire\Auth\Register;
 use App\Livewire\Auth\ResetPassword;
 use App\Livewire\Dashboard;
 use App\Livewire\LandingPage;
+use App\Livewire\Profile;
 use App\Livewire\Subscription\Cancel;
 use App\Livewire\Subscription\ManageSubscription;
 use App\Livewire\Subscription\Success;
@@ -47,9 +48,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/subscription/success', Success::class)->name('subscription.success')->middleware('subscription.access');
     Route::get('/subscription/cancel', Cancel::class)->name('subscription.cancel')->middleware('subscription.access');
 
-    Route::get('/profile', function () {
-        return view('livewire.profile');
-    })->name('profile');
+    Route::get('/profile', Profile::class)->name('profile');
 
     Route::get('/settings', function () {
         return view('livewire.settings');
