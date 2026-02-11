@@ -6,7 +6,6 @@ use App\Livewire\Forms\ContentForm;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Masmerise\Toaster\Toaster;
 
 class Create extends Component
 {
@@ -52,19 +51,11 @@ class Create extends Component
         $this->filePreviews = array_values($this->filePreviews);
     }
 
-    public function save(): void
-    {
-        $this->form->validate();
+    public function save()
+    {        
+        $this->form->save();
 
-        try {
-            $this->form->save();
-
-            Toaster::success('Conteúdo criado com sucesso!');
-
-            $this->redirectRoute('contents.my', navigate: true);
-        } catch (\Exception $e) {
-            Toaster::error('Erro ao criar conteúdo. Tente novamente.');
-        }
+        return redirect(route('contents.my'))->success('Conteúdo criado com sucesso!');   
     }
 
     private function formatFileSize(int $bytes): string

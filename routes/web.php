@@ -6,6 +6,8 @@ use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Auth\ResetPassword;
 use App\Livewire\Contents\Create;
+use App\Livewire\Contents\MyContents;
+use App\Livewire\Contents\Show;
 use App\Livewire\Dashboard;
 use App\Livewire\LandingPage;
 use App\Livewire\Profile;
@@ -37,9 +39,9 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/contents/create', Create::class)->name('contents.create');
 
-        Route::get('/my', function () {
-            return view('livewire.contents.my');
-        })->name('contents.my');
+        Route::get('/my', MyContents::class)->name('contents.my');
+
+        Route::get('/{content}', Show::class)->name('contents.show');
     });
 
     Route::get('/subscription', ManageSubscription::class)->name('subscription');
