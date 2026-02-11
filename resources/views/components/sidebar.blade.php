@@ -11,7 +11,7 @@
         {{-- Conteúdos --}}
         <a href="{{ route('contents.index') }}"
            class="flex items-center gap-3 px-4 py-3 rounded-lg transition duration-200
-                  {{ request()->routeIs('contents.*') ? 'bg-primary/10 text-primary' : 'text-[#64748b] dark:text-[#94a3b8] hover:bg-gray-100 dark:hover:bg-[#0f172a]' }}">
+                  {{ request()->routeIs('contents.index') ? 'bg-primary/10 text-primary' : 'text-[#64748b] dark:text-[#94a3b8] hover:bg-gray-100 dark:hover:bg-[#0f172a]' }}">
             <i class="ph ph-files text-xl"></i>
             <span class="font-medium">Conteúdos</span>
         </a>

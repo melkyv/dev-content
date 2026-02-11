@@ -5,6 +5,7 @@ use App\Livewire\Auth\ForgotPassword;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Auth\ResetPassword;
+use App\Livewire\Contents\Create;
 use App\Livewire\Dashboard;
 use App\Livewire\LandingPage;
 use App\Livewire\Profile;
@@ -34,9 +35,7 @@ Route::middleware(['auth'])->group(function () {
             return view('livewire.contents.index');
         })->name('contents.index');
 
-        Route::get('/create', function () {
-            return view('livewire.contents.create');
-        })->name('contents.create');
+        Route::get('/contents/create', Create::class)->name('contents.create');
 
         Route::get('/my', function () {
             return view('livewire.contents.my');
