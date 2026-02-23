@@ -35,7 +35,7 @@
                 <label class="block text-sm font-medium text-[#475569] dark:text-[#cbd5e1] mb-1">Status</label>
                 <select
                     wire:model.live="status"
-                    class="w-full px-4 py-2 rounded-lg border border-[#e2e8f0] dark:border-[#334155] bg-white dark:bg-[#0f172a] text-[#1e293b] dark:text-[#f1f5f9] focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                    class="w-full h-10 px-4 py-2 rounded-lg border border-[#e2e8f0] dark:border-[#334155] bg-white dark:bg-[#0f172a] text-[#1e293b] dark:text-[#f1f5f9] focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
                 >
                     <option value="">Todos</option>
                     <option value="published">Publicados</option>
@@ -48,7 +48,7 @@
                 <label class="block text-sm font-medium text-[#475569] dark:text-[#cbd5e1] mb-1">Tipo</label>
                 <select
                     wire:model.live="type"
-                    class="w-full px-4 py-2 rounded-lg border border-[#e2e8f0] dark:border-[#334155] bg-white dark:bg-[#0f172a] text-[#1e293b] dark:text-[#f1f5f9] focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                    class="w-full h-10 px-4 py-2 rounded-lg border border-[#e2e8f0] dark:border-[#334155] bg-white dark:bg-[#0f172a] text-[#1e293b] dark:text-[#f1f5f9] focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
                 >
                     <option value="">Todos</option>
                     <option value="premium">Premium</option>
@@ -60,7 +60,7 @@
                 <label class="block text-sm font-medium text-[#475569] dark:text-[#cbd5e1] mb-1">Ordenar por</label>
                 <select
                     wire:model.live="sortBy"
-                    class="w-full px-4 py-2 rounded-lg border border-[#e2e8f0] dark:border-[#334155] bg-white dark:bg-[#0f172a] text-[#1e293b] dark:text-[#f1f5f9] focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                    class="w-full h-10 px-4 py-2 rounded-lg border border-[#e2e8f0] dark:border-[#334155] bg-white dark:bg-[#0f172a] text-[#1e293b] dark:text-[#f1f5f9] focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
                 >
                     <option value="recent">Mais recente</option>
                     <option value="views">Mais views</option>
