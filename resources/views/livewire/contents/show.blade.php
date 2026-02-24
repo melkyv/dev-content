@@ -149,6 +149,57 @@
                     </div>
                 @endif
 
+                <div class="border-t border-[#e2e8f0] dark:border-[#334155] pt-4">
+                    <h3 class="text-sm font-semibold text-[#1e293b] dark:text-[#f1f5f9] mb-3">Arquivos</h3>
+                    
+                    @if($form->content->files->count() > 0)
+                        <div class="space-y-3 mb-4">
+                            @foreach($form->content->files as $file)
+                                <div class="flex items-center justify-between p-3 bg-[#f8fafc] dark:bg-[#0f172a] rounded-lg border border-[#e2e8f0] dark:border-[#334155]">
+                                    <div class="flex items-center gap-3">
+                                        <i class="ph ph-file text-primary text-xl"></i>
+                                        <div>
+                                            <p class="text-sm font-medium text-[#1e293b] dark:text-[#f1f5f9]">{{ $file->original_name }}</p>
+                                            <p class="text-xs text-[#64748b] dark:text-[#94a3b8]">{{ number_format($file->size / 1024, 2) }} KB</p>
+                                        </div>
+                                    </div>
+                                    <button wire:click="removeFile({{ $file->id }})" wire:confirm="Tem certeza que deseja remover este arquivo?" class="text-red-500 hover:text-red-600 p-1 transition-colors">
+                                        <i class="ph ph-trash text-lg"></i>
+                                    </button>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <p class="text-sm text-[#64748b] dark:text-[#94a3b8] mb-4">Nenhum arquivo anexado.</p>
+                    @endif
+
+                    <h4 class="text-sm font-medium text-[#475569] dark:text-[#cbd5e1] mb-2">Adicionar Novos Arquivos</h4>
+                    <input type="file" wire:model="form.newFiles" multiple class="w-full px-4 py-2 rounded-lg border border-[#e2e8f0] dark:border-[#334155] bg-white dark:bg-[#0f172a] text-[#1e293b] dark:text-[#f1f5f9] file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary/90">
+                    
+                    @if(!empty($newFilePreviews))
+                        <div class="mt-3 space-y-2">
+                            @foreach($newFilePreviews as $index => $preview)
+                                <div class="flex items-center justify-between p-3 bg-[#f8fafc] dark:bg-[#0f172a] rounded-lg border border-[#e2e8f0] dark:border-[#334155]">
+                                    <div class="flex items-center gap-3">
+                                        <i class="ph ph-file text-primary text-xl"></i>
+                                        <div>
+                                            <p class="text-sm font-medium text-[#1e293b] dark:text-[#f1f5f9]">{{ $preview['name'] }}</p>
+                                            <p class="text-xs text-[#64748b] dark:text-[#94a3b8]">{{ $preview['size'] }}</p>
+                                        </div>
+                                    </div>
+                                    <button wire:click="removeNewFile({{ $index }})" class="text-red-500 hover:text-red-600 p-1 transition-colors">
+                                        <i class="ph ph-x text-lg"></i>
+                                    </button>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+
+                    @if(!empty($form->newFiles))
+                        <p class="text-sm text-[#64748b] dark:text-[#94a3b8] mt-2">Os novos arquivos serão salvos quando você clicar em "Salvar Alterações".</p>
+                    @endif
+                </div>
+
                 <div class="flex gap-3 pt-4">
                     <button wire:click="update" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors font-medium">
                         Salvar Alterações
@@ -161,12 +212,11 @@
         </div>
     @endif
 
-    {{-- Files Section --}}
-    <div class="bg-white dark:bg-[#1e293b] rounded-xl shadow-sm border border-[#e2e8f0] dark:border-[#334155] p-6 mb-6">
-        <h2 class="text-lg font-semibold text-[#1e293b] dark:text-[#f1f5f9] mb-4">Arquivos</h2>
-
-        @if($form->content->files->count() > 0)
-            <div class="space-y-3 mb-6">
+    {{-- Files Section - View Only --}}
+    @if(!$isEditing && $form->content->files->count() > 0)
+        <div class="bg-white dark:bg-[#1e293b] rounded-xl shadow-sm border border-[#e2e8f0] dark:border-[#334155] p-6 mb-6">
+            <h2 class="text-lg font-semibold text-[#1e293b] dark:text-[#f1f5f9] mb-4">Arquivos</h2>
+            <div class="space-y-3">
                 @foreach($form->content->files as $file)
                     <div class="flex items-center justify-between p-4 bg-[#f8fafc] dark:bg-[#0f172a] rounded-lg border border-[#e2e8f0] dark:border-[#334155]">
                         <div class="flex items-center gap-3">
@@ -176,53 +226,14 @@
                                 <p class="text-sm text-[#64748b] dark:text-[#94a3b8]">{{ number_format($file->size / 1024, 2) }} KB</p>
                             </div>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <button wire:click="downloadFile({{ $file->id }})" class="text-primary hover:text-primary/80 p-2 rounded-lg hover:bg-primary/10 transition-colors" title="Download">
-                                <i class="ph ph-download-simple text-xl"></i>
-                            </button>
-                            @if($canEdit)
-                                <button wire:click="removeFile({{ $file->id }})" wire:confirm="Tem certeza que deseja remover este arquivo?" class="text-red-500 hover:text-red-600 p-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors" title="Remover">
-                                    <i class="ph ph-trash text-xl"></i>
-                                </button>
-                            @endif
-                        </div>
+                        <button wire:click="downloadFile({{ $file->id }})" class="text-primary hover:text-primary/80 p-2 rounded-lg hover:bg-primary/10 transition-colors" title="Download">
+                            <i class="ph ph-download-simple text-xl"></i>
+                        </button>
                     </div>
                 @endforeach
             </div>
-        @else
-            <p class="text-[#64748b] dark:text-[#94a3b8] text-center py-4 mb-6">Nenhum arquivo anexado.</p>
-        @endif
-
-        @if($canEdit)
-            <div class="border-t border-[#e2e8f0] dark:border-[#334155] pt-6">
-                <h3 class="text-sm font-semibold text-[#1e293b] dark:text-[#f1f5f9] mb-3">Adicionar Novos Arquivos</h3>
-                <input type="file" wire:model="form.newFiles" multiple class="w-full px-4 py-2 rounded-lg border border-[#e2e8f0] dark:border-[#334155] bg-white dark:bg-[#0f172a] text-[#1e293b] dark:text-[#f1f5f9] file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary/90">
-                
-                @if(!empty($newFilePreviews))
-                    <div class="mt-4 space-y-2">
-                        @foreach($newFilePreviews as $index => $preview)
-                            <div class="flex items-center justify-between p-3 bg-[#f8fafc] dark:bg-[#0f172a] rounded-lg border border-[#e2e8f0] dark:border-[#334155]">
-                                <div class="flex items-center gap-3">
-                                    <i class="ph ph-file text-primary text-xl"></i>
-                                    <div>
-                                        <p class="text-sm font-medium text-[#1e293b] dark:text-[#f1f5f9]">{{ $preview['name'] }}</p>
-                                        <p class="text-xs text-[#64748b] dark:text-[#94a3b8]">{{ $preview['size'] }}</p>
-                                    </div>
-                                </div>
-                                <button wire:click="removeNewFile({{ $index }})" class="text-red-500 hover:text-red-600 p-1 transition-colors">
-                                    <i class="ph ph-x text-lg"></i>
-                                </button>
-                            </div>
-                        @endforeach
-                    </div>
-                @endif
-
-                @if($isEditing && !empty($form->newFiles))
-                    <p class="text-sm text-[#64748b] dark:text-[#94a3b8] mt-2">Os novos arquivos serão adicionados quando você salvar as alterações.</p>
-                @endif
-            </div>
-        @endif
-    </div>
+        </div>
+    @endif
 
     {{-- Danger Zone --}}
     @if($canEdit)
