@@ -16,8 +16,8 @@
                                  alt="Preview do avatar"
                                  class="w-32 h-32 rounded-full object-cover border-4 border-primary/20">
                         @elseif (auth()->user()->avatar_path)
-                            <img src="{{ auth()->user()->avatar_url }}"
-                                 alt="Avatar"
+                            <img src="{{ auth()->user()->avatarUrl }}"
+                                 alt="{{ auth()->user()->name }}"
                                  class="w-32 h-32 rounded-full object-cover border-4 border-primary/20">
                         @else
                             <div class="w-32 h-32 rounded-full bg-primary/10 flex items-center justify-center border-4 border-primary/20">
