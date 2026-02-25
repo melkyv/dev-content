@@ -6,6 +6,7 @@ use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Auth\ResetPassword;
 use App\Livewire\Contents\Create;
+use App\Livewire\Contents\Index;
 use App\Livewire\Contents\MyContents;
 use App\Livewire\Contents\Show;
 use App\Livewire\Dashboard;
@@ -33,9 +34,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
 
     Route::prefix('contents')->group(function () {
-        Route::get('/', function () {
-            return view('livewire.contents.index');
-        })->name('contents.index');
+        Route::get('/', Index::class)->name('contents.index');
 
         Route::get('/contents/create', Create::class)->name('contents.create');
 
