@@ -171,7 +171,6 @@ class ContentForm extends Form
         }
 
         DB::transaction(function () {
-            // Remove todos os arquivos associados
             foreach ($this->content->files as $file) {
                 Storage::disk($file->disk)->delete($file->path);
             }
@@ -211,7 +210,7 @@ class ContentForm extends Form
                 'mime_type' => $file->getMimeType(),
                 'size' => $file->getSize(),
                 'disk' => 'public',
-                'is_processed' => false,
+                'is_processed' => true,
             ]);
         }
     }

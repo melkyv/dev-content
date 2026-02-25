@@ -22,6 +22,13 @@ class SocialiteController extends Controller
                 ['email' => $socialUser->getEmail()],
                 [
                     'name' => $socialUser->getName(),
+                    'avatar_path' => function ($user) use ($socialUser) {
+                        if ($user->avatar_path) {
+                            return $user->avatar_path;
+                        }
+
+                        return $socialUser->getAvatar();
+                    },
                     'provider' => $provider,
                     'provider_id' => $socialUser->getId(),
                     'avatar_path' => $socialUser->getAvatar(),
