@@ -67,4 +67,38 @@ class Content extends Model
     {
         return $query->where('is_premium', false);
     }
+
+    public function recordView(): void
+    {
+        $today = now()->toDateString();
+
+        $metric = $this->metrics()->whereDate('date', $today)->first();
+
+        if ($metric) {
+            $metric->increment('views');
+        } else {
+            $this->metrics()->create([
+                'views' => 1,
+                'downloads' => 0,
+                'date' => $today,
+            ]);
+        }
+    }
+
+    public function recordDownload(): void
+    {
+        $today = now()->toDateString();
+
+        $metric = $this->metrics()->whereDate('date', $today)->first();
+
+        if ($metric) {
+            $metric->increment('downloads');
+        } else {
+            $this->metrics()->create([
+                'views' => 0,
+                'downloads' => 1,
+                'date' => $today,
+            ]);
+        }
+    }
 }

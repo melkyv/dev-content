@@ -4,6 +4,7 @@ namespace App\Livewire\Contents;
 
 use App\Livewire\Forms\ContentForm;
 use App\Models\Content;
+use App\Traits\TracksViewedContent;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -11,6 +12,7 @@ use Masmerise\Toaster\Toaster;
 
 class Show extends Component
 {
+    use TracksViewedContent;
     use WithFileUploads;
 
     public bool $canEdit = false;
@@ -35,7 +37,17 @@ class Show extends Component
             return;
         }
 
+        if (! $this->hasViewedContent($content->id)) {
+            $content->recordView();
+            $this->markContentAsViewed($content->id);
+        }
+
         $this->form->setContent($content);
+    }
+
+    public function back()
+    {
+        return back();
     }
 
     public function toggleEdit(): void
@@ -130,6 +142,8 @@ class Show extends Component
             return;
         }
 
+        $this->form->content->recordDownload();
+
         $this->dispatch('file-download', [
             'url' => url('storage/'.$file->path),
             'name' => $file->original_name,
@@ -147,7 +161,7 @@ class Show extends Component
         try {
             $this->form->delete();
 
-            return redirect(route('contents.my'))->success('Conteúdo excluído com sucesso!'); 
+            return redirect(route('contents.my'))->success('Conteúdo excluído com sucesso!');
         } catch (\Exception $e) {
             Toaster::error('Erro ao excluir conteúdo. Tente novamente.');
         }

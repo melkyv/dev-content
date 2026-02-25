@@ -5,7 +5,7 @@
         <div class="flex items-center justify-between">
             <a href="{{ route('contents.my') }}" class="text-[#64748b] dark:text-[#94a3b8] hover:text-[#475569] dark:hover:text-[#cbd5e1] font-medium transition-colors flex items-center gap-1">
                 <i class="ph ph-arrow-left"></i>
-                Voltar para Meus Conteúdos
+                Ver Meus Conteúdos
             </a>
             @if($canEdit)
                 <button
