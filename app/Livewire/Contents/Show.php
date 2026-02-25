@@ -136,7 +136,7 @@ class Show extends Component
         ]);
     }
 
-    public function delete(): void
+    public function delete()
     {
         if (! $this->canEdit) {
             Toaster::error('Você não tem permissão para excluir este conteúdo.');
@@ -146,8 +146,8 @@ class Show extends Component
 
         try {
             $this->form->delete();
-            Toaster::success('Conteúdo excluído com sucesso!');
-            $this->redirectRoute('contents.my', navigate: true);
+
+            return redirect(route('contents.my'))->success('Conteúdo excluído com sucesso!'); 
         } catch (\Exception $e) {
             Toaster::error('Erro ao excluir conteúdo. Tente novamente.');
         }
