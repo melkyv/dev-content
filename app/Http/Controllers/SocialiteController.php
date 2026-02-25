@@ -18,22 +18,22 @@ class SocialiteController extends Controller
         try {
             $socialUser = Socialite::driver($provider)->user();
 
-            $user = User::updateOrCreate(
-                ['email' => $socialUser->getEmail()],
-                [
-                    'name' => $socialUser->getName(),
-                    'avatar_path' => function ($user) use ($socialUser) {
-                        if ($user->avatar_path) {
-                            return $user->avatar_path;
-                        }
+            $user = User::where('email', $socialUser->getEmail())->first();
 
-                        return $socialUser->getAvatar();
-                    },
+            if ($user) {
+                $user->update([
                     'provider' => $provider,
                     'provider_id' => $socialUser->getId(),
+                ]);
+            } else {
+                $user = User::create([
+                    'name' => $socialUser->getName(),
+                    'email' => $socialUser->getEmail(),
                     'avatar_path' => $socialUser->getAvatar(),
-                ]
-            );
+                    'provider' => $provider,
+                    'provider_id' => $socialUser->getId(),
+                ]);
+            }
 
             Auth::login($user);
 
