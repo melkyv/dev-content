@@ -45,11 +45,6 @@ class Show extends Component
         $this->form->setContent($content);
     }
 
-    public function back()
-    {
-        return back();
-    }
-
     public function toggleEdit(): void
     {
         if (! $this->canEdit) {
